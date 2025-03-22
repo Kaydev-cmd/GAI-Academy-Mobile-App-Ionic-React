@@ -1,31 +1,22 @@
-import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-} from "@ionic/react";
-// import ExploreContainer from '../components/ExploreContainer';
-import "./Home.css";
+import { useState, useEffect } from "react";
+import { IonPage } from "@ionic/react";
+import SplashScreen from "./Splash";
+import Login from "./auth/Login";
 
 const Home: React.FC = () => {
-  return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Blank</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Blank</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        {/* <ExploreContainer /> */}
-      </IonContent>
-    </IonPage>
-  );
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  return <IonPage>{showSplash ? <SplashScreen /> : <Login />}</IonPage>;
 };
 
 export default Home;
